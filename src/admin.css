@@ -111,3 +111,110 @@
   color: #65716c;
   font-weight: 600;
 }
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.current-admin {
+  color: #65716c;
+  font-weight: 600;
+}
+.user-edit {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+  padding: 14px;
+  background: #f4f7f4;
+  border-bottom: 1px solid #e5e8e4;
+}
+.user-edit label {
+  display: grid;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.user-edit input {
+  border: 1px solid #b8c5bd;
+  border-radius: 2px;
+  padding: 9px;
+  font: 14px "DM Sans";
+}
+.user-edit small {
+  font-weight: 400;
+  color: #65716c;
+}
+@media (max-width: 700px) {
+  .user-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .user-edit {
+    grid-template-columns: 1fr;
+  }
+  .user-edit .actions {
+    justify-content: flex-start;
+  }
+}
+
+button:not(.link) {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 16px;
+  border-radius: 3px;
+  line-height: 1.1;
+  white-space: nowrap;
+  box-shadow: none;
+}
+button:not(.link):disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.secondary,
+.section-edit-button,
+.user-actions .secondary {
+  background: #e7ece8 !important;
+  color: #1c2b27 !important;
+  border: 1px solid #dbe2dc !important;
+}
+.user-row .user-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.user-actions button {
+  min-width: 100px;
+}
+.user-edit {
+  align-items: end;
+}
+.user-edit .actions {
+  margin: 0;
+  align-self: end;
+  justify-content: flex-end;
+}
+.user-edit .actions button {
+  min-width: 86px;
+}
+.current-admin {
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  button:not(.link) {
+    min-height: 40px;
+    padding: 0 13px;
+  }
+  .user-row .user-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .user-edit .actions {
+    justify-content: flex-start;
+  }
+}

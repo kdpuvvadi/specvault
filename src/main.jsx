@@ -1111,6 +1111,10 @@ function UserAdmin({ onChange, onBack }) {
   const [password, setPassword] = useState("");
   const [makeAdmin, setMakeAdmin] = useState(false);
   const [message, setMessage] = useState("");
+  const [editingAccount, setEditingAccount] = useState(null);
+  const [editName, setEditName] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [editPassword, setEditPassword] = useState("");
   async function load() {
     try {
       setUsers(await pb.collection("users").getFullList({ sort: "email" }));
@@ -1158,6 +1162,8 @@ function UserAdmin({ onChange, onBack }) {
       setMessage(err.message);
     }
   }
+  function startEdit(account) { setEditingAccount(account); setEditName(account.name || ""); setEditEmail(account.email || ""); setEditPassword(""); }
+  async function saveEdit(e) { e.preventDefault(); if (!editingAccount) return; try { const data = { name: editName, email: editEmail, emailVisibility: true }; if (editPassword) { data.password = editPassword; data.passwordConfirm = editPassword; } await pb.collection("users").update(editingAccount.id, data); setMessage("User details updated."); setEditingAccount(null); load(); } catch (err) { setMessage(err.message); } }
   return (
     <section className="user-admin admin-detail">
       <button className="back-button" onClick={onBack}>
@@ -1214,13 +1220,16 @@ function UserAdmin({ onChange, onBack }) {
         <div className="users-list">
           <h3>Existing users</h3>
           {users.map((account) => (
-          <div className="user-row" key={account.id}>
+          <React.Fragment key={account.id}>
+          <div className="user-row">
             <span>
               <strong>{account.name || account.email || `User ${account.id}`}</strong>
               <small>{account.email || account.id}</small>
             </span>
-            {account.id === pb.authStore.record?.id ? <small className="current-admin">Current administrator</small> : <button className={account.admin ? "secondary" : ""} onClick={() => toggle(account)}>{account.admin ? "Remove admin" : "Make admin"}</button>}
+            <span className="user-actions"><button type="button" className="secondary" onClick={() => startEdit(account)}>Edit</button>{account.id === pb.authStore.record?.id ? <small className="current-admin">Current administrator</small> : <button className={account.admin ? "secondary" : ""} onClick={() => toggle(account)}>{account.admin ? "Remove admin" : "Make admin"}</button>}</span>
           </div>
+          {editingAccount?.id === account.id && <form className="user-edit" onSubmit={saveEdit}><label>Name<input value={editName} onChange={(e) => setEditName(e.target.value)} /></label><label>Email<input type="email" value={editEmail} onChange={(e) => setEditEmail(e.target.value)} required /></label><label>New temporary password <small>(leave blank to keep unchanged)</small><input type="password" minLength="8" value={editPassword} onChange={(e) => setEditPassword(e.target.value)} /></label><div className="actions"><button type="button" className="secondary" onClick={() => setEditingAccount(null)}>Cancel</button><button>Save user</button></div></form>}
+          </React.Fragment>
           ))}
         </div>
       </div>

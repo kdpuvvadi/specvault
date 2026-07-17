@@ -57,6 +57,7 @@ try {
     createRule: adminOnly,
     updateRule: 'id = @request.auth.id || @request.auth.role = "admin"',
     deleteRule: adminOnly,
+    manageRule: adminOnly,
     passwordAuth: { enabled: true, identityFields: ['email'] },
     fields: [
       { name: 'name', type: 'text', max: 120 },
@@ -77,7 +78,8 @@ try {
     viewRule: 'id = @request.auth.id || @request.auth.admin = true',
     createRule: adminOnly,
     updateRule: 'id = @request.auth.id || @request.auth.admin = true',
-    deleteRule: adminOnly
+    deleteRule: adminOnly,
+    manageRule: adminOnly
   });
 
   const manufacturers = await getOrCreate('manufacturers', {
