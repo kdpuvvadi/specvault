@@ -1131,6 +1131,7 @@ function UserAdmin({ onChange, onBack }) {
         password,
         passwordConfirm: password,
         admin: makeAdmin,
+        emailVisibility: true,
       });
       setName("");
       setEmail("");
@@ -1143,6 +1144,7 @@ function UserAdmin({ onChange, onBack }) {
     }
   }
   async function toggle(account) {
+    if (account.id === pb.authStore.record?.id) return;
     try {
       await pb
         .collection("users")
@@ -1212,18 +1214,13 @@ function UserAdmin({ onChange, onBack }) {
         <div className="users-list">
           <h3>Existing users</h3>
           {users.map((account) => (
-            <div className="user-row" key={account.id}>
-              <span>
-                <strong>{account.name || "Unnamed user"}</strong>
-                <small>{account.email}</small>
-              </span>
-              <button
-                className={account.admin ? "secondary" : ""}
-                onClick={() => toggle(account)}
-              >
-                {account.admin ? "Remove admin" : "Make admin"}
-              </button>
-            </div>
+          <div className="user-row" key={account.id}>
+            <span>
+              <strong>{account.name || account.email || `User ${account.id}`}</strong>
+              <small>{account.email || account.id}</small>
+            </span>
+            {account.id === pb.authStore.record?.id ? <small className="current-admin">Current administrator</small> : <button className={account.admin ? "secondary" : ""} onClick={() => toggle(account)}>{account.admin ? "Remove admin" : "Make admin"}</button>}
+          </div>
           ))}
         </div>
       </div>
@@ -1231,9 +1228,10 @@ function UserAdmin({ onChange, onBack }) {
   );
 }
 
-function AdminProfile({ manufacturers, onHome, onRefresh }) {
-  const [view, setView] = useState("overview");
+function AdminProfile({ manufacturers, onHome, onRefresh, initialView }) {
+  const [view, setView] = useState(initialView);
   const [catalogOpen, setCatalogOpen] = useState(false);
+  function setAdminView(nextView) { window.history.pushState({}, "", nextView === "users" ? "/admin/users" : "/admin"); setView(nextView); }
   if (view === "users")
     return (
       <main>
@@ -1245,7 +1243,7 @@ function AdminProfile({ manufacturers, onHome, onRefresh }) {
             Back to lookup
           </button>
         </nav>
-        <UserAdmin onChange={onRefresh} onBack={() => setView("overview")} />
+        <UserAdmin onChange={onRefresh} onBack={() => setAdminView("overview")} />
       </main>
     );
   return (
@@ -1265,7 +1263,7 @@ function AdminProfile({ manufacturers, onHome, onRefresh }) {
           Manage contributor access and keep the product catalog structured.
         </p>
         <div className="admin-actions">
-          <button className="admin-action" onClick={() => setView("users")}>
+          <button className="admin-action" onClick={() => setAdminView("users")}>
             <span>01</span>
             <strong>Users & access</strong>
             <small>Create accounts and promote administrators.</small>
@@ -1303,7 +1301,7 @@ function App() {
   const [editing, setEditing] = useState(false);
   const [refresh, setRefresh] = useState(0);
   const [loginScreen, setLoginScreen] = useState(false);
-  const [adminScreen, setAdminScreen] = useState(false);
+  const [adminScreen, setAdminScreen] = useState(() => window.location.pathname.startsWith("/admin"));
   const isAdmin = user?.admin === true;
   const selected = products.find((p) => p.id === selection.product);
   useEffect(() => {
@@ -1376,7 +1374,8 @@ function App() {
     return (
       <AdminProfile
         manufacturers={manufacturers}
-        onHome={() => setAdminScreen(false)}
+        initialView={window.location.pathname === "/admin/users" ? "users" : "overview"}
+        onHome={() => { window.history.pushState({}, "", "/"); setAdminScreen(false); }}
         onRefresh={() => setRefresh((x) => x + 1)}
       />
     );
@@ -1394,7 +1393,7 @@ function App() {
                 {isAdmin && " · admin"}
               </span>
               {isAdmin && (
-                <button className="link" onClick={() => setAdminScreen(true)}>
+                <button className="link" onClick={() => { window.history.pushState({}, "", "/admin"); setAdminScreen(true); }}>
                   Admin profile
                 </button>
               )}
