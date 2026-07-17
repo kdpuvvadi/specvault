@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_POCKETBASE_URL=http://localhost:8090
+    depends_on:
+      - pocketbase
+  pocketbase:
+    image: ghcr.io/kdpuvvadi/pocketbase:latest
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./pb_data:/usr/src/app/pb_data
+      - ./pb_migrations:/usr/src/app/pb_migrations
