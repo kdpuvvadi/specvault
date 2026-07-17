@@ -42,6 +42,11 @@ async function removeField(collection, name) {
   console.log(`- removed legacy ${name} field from ${latest.name}`);
 }
 
+async function ensureTimestamps(collection) {
+  await ensureField(collection, { name: 'created', type: 'autodate', onCreate: true, onUpdate: false });
+  await ensureField(collection, { name: 'updated', type: 'autodate', onCreate: true, onUpdate: true });
+}
+
 try {
   await pb.collection('_superusers').authWithPassword(email, password);
 
@@ -155,6 +160,8 @@ try {
   await removeField(products, 'sections');
   await removeField(sections, 'subsections');
   await removeField(series, 'manufacturer');
+
+  await Promise.all([users, manufacturers, categories, series, products, sections, subsections].map(ensureTimestamps));
 
   console.log('\nPocketBase schema is ready. Create user records in the dashboard and enable admin for catalog administrators.');
 } catch (error) {
