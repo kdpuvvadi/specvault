@@ -5,8 +5,8 @@ services:
     ports:
       - "3000:80"
     environment:
-      - VITE_POCKETBASE_URL=http://localhost:8090
-    depends_on:
+      - VITE_POCKETBASE_URL="${VITE_POCKETBASE_URL}"
+    depends_on: 
       - pocketbase
   pocketbase:
     image: ghcr.io/kdpuvvadi/pocketbase:latest

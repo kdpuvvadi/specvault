@@ -1,16 +1,41 @@
 services:
   specvault:
     image: ghcr.io/kdpuvvadi/specvault:latest
-    ports:
-      - "3000:80"
     environment:
-      - VITE_POCKETBASE_URL=http://localhost:8090
+      - VITE_POCKETBASE_URL="${VITE_POCKETBASE_URL}"
     depends_on:
       - pocketbase
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.specvault.entrypoints=https"
+      - "traefik.http.routers.specvault.rule=Host(`${VITE_SPECVAULT_URL}`)"
+      - "traefik.http.routers.specvault.middlewares=default-headers@file,https-redirectscheme@file"
+      - "traefik.http.routers.specvault.tls=true"
+      - "traefik.http.routers.specvault.service=specvault"
+      - "traefik.http.services.specvault.loadbalancer.server.scheme=http"
+      - "traefik.http.services.specvault.loadbalancer.server.port=80"
+    restart: unless-stopped
   pocketbase:
     image: ghcr.io/kdpuvvadi/pocketbase:latest
-    ports:
-      - "8090:8090"
     volumes:
       - ./pb_data:/usr/src/app/pb_data
       - ./pb_migrations:/usr/src/app/pb_migrations
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.specvault-api.entrypoints=https"
+      - "traefik.http.routers.specvault-api.rule=Host(`${VITE_POCKETBASE_URL}`)"
+      - "traefik.http.routers.specvault-api.middlewares=default-headers@file,https-redirectscheme@file"
+      - "traefik.http.routers.specvault-api.tls=true"
+      - "traefik.http.routers.specvault-api.service=specvault-api"
+      - "traefik.http.services.specvault-api.loadbalancer.server.scheme=http"
+      - "traefik.http.services.specvault-api.loadbalancer.server.port=8090"
+
+networks:
+  proxy:
+    external: true

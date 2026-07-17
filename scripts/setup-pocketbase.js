@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase';
 
-const url = process.env.POCKETBASE_URL || 'http://127.0.0.1:8090';
+const url = process.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090';
 const email = process.env.POCKETBASE_SUPERUSER_EMAIL;
 const password = process.env.POCKETBASE_SUPERUSER_PASSWORD;
 
