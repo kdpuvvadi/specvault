@@ -1,6 +1,7 @@
 services:
   app:
     build: .
+    image: ghcr.io/kdpuvvadi/specvault:latest
     ports:
       - "3000:80"
     environment:
