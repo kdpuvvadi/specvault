@@ -10,6 +10,7 @@ import "./inline-editor.css";
 import "./refinement.css";
 import "./sharing.css";
 import "./mobile.css";
+import "./scoped-editing.css";
 
 const pb = new PocketBase(
   import.meta.env.VITE_POCKETBASE_URL || "http://127.0.0.1:8090",
@@ -161,6 +162,7 @@ function Content({ block, record }) {
 
 function ProductDetails({ product, canEdit, editing, onEdit, onDone }) {
   const [loadedSections, setLoadedSections] = useState([]);
+  const [editingSectionId, setEditingSectionId] = useState("");
   useEffect(() => {
     if (!product) {
       setLoadedSections([]);
@@ -260,11 +262,11 @@ function ProductDetails({ product, canEdit, editing, onEdit, onDone }) {
       {sections.length ? (
         sections.map((section) => (
           <section className="section" key={section.id}>
-            {editing ? (
-              <SectionEditor section={section} onDone={onDone} />
+            {editingSectionId === section.id ? (
+              <SectionEditor section={section} onDone={() => { setEditingSectionId(""); onDone(); }} />
             ) : (
               <div>
-                <h2>{section.title}</h2>
+                <div className="section-title-row"><h2>{section.title}</h2>{canEdit && <button className="section-edit-button" onClick={() => setEditingSectionId(section.id)}>Edit section</button>}</div>
                 {section.description && <p>{section.description}</p>}
                 {(section.expand?.subsections || []).map((sub) => (
                   <div className="subsection" key={sub.id}>
@@ -607,7 +609,8 @@ function SubsectionEditor({ subsection, onDone }) {
 function SectionEditor({ section, onDone }) {
   const [title, setTitle] = useState(section.title);
   const [description, setDescription] = useState(section.description || "");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [editingSubsectionId, setEditingSubsectionId] = useState("");
   async function save(e) {
     e.preventDefault();
     try {
@@ -627,7 +630,7 @@ function SectionEditor({ section, onDone }) {
     >
       <summary>
         {section.title}
-        <span>Edit section</span>
+        <span>Editing section</span>
       </summary>
       <form onSubmit={save}>
         <label>
@@ -643,9 +646,7 @@ function SectionEditor({ section, onDone }) {
         </label>
         <button>Save section</button>
       </form>
-      {(section.expand?.subsections || []).map((sub) => (
-        <SubsectionEditor key={sub.id} subsection={sub} onDone={onDone} />
-      ))}
+      <div className="subsection-list">{(section.expand?.subsections || []).map((sub) => editingSubsectionId === sub.id ? <SubsectionEditor key={sub.id} subsection={sub} onDone={() => { setEditingSubsectionId(""); onDone(); }} /> : <div className="subsection-summary" key={sub.id}><strong>{sub.title}</strong><button type="button" className="secondary" onClick={() => setEditingSubsectionId(sub.id)}>Edit subsection</button></div>)}</div>
     </details>
   );
 }
