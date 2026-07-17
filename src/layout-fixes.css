@@ -1,0 +1,42 @@
+.blocks-head {
+  align-items: center;
+}
+.block-add {
+  align-items: center;
+}
+.block-add .upload-button {
+  display: inline-flex !important;
+  align-items: center;
+  margin: 0 !important;
+  min-height: 40px;
+}
+.block-add .upload-button input {
+  display: none !important;
+}
+@media (max-width: 700px) {
+  .blocks-head {
+    align-items: flex-start;
+  }
+  .block-add {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  .block-add button,
+  .block-add .upload-button {
+    width: 100%;
+    justify-content: center;
+  }
+  .product-card {
+    padding: 22px 18px;
+  }
+  .product-head {
+    gap: 14px;
+  }
+  .section-title-row h2 {
+    margin-bottom: 0;
+  }
+  .share-links {
+    margin-top: 10px;
+  }
+}
