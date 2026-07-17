@@ -1,1 +1,29 @@
-.lookup-four{grid-template-columns:repeat(4,1fr)}.type-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:22px 0}.type-options button{background:#f1f4f1!important;color:#1c2b27!important;text-align:left;padding:11px 12px!important}.type-options button.chosen{background:#1c2b27!important;color:#fff!important}@media(max-width:850px){.lookup-four{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.lookup-four{grid-template-columns:1fr}}
+.lookup-four {
+  grid-template-columns: repeat(4, 1fr);
+}
+.type-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 22px 0;
+}
+.type-options button {
+  background: #f1f4f1 !important;
+  color: #1c2b27 !important;
+  text-align: left;
+  padding: 11px 12px !important;
+}
+.type-options button.chosen {
+  background: #1c2b27 !important;
+  color: #fff !important;
+}
+@media (max-width: 850px) {
+  .lookup-four {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .lookup-four {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,1 +1,69 @@
-.content-block-editor{display:block!important;border:1px solid #edf0ed;padding:14px;margin:12px 0}.content-block-editor>textarea{width:100%;min-height:100px}.content-block-editor>.remove-block{margin-top:10px}.pair-inputs{grid-template-columns:minmax(220px,1fr) minmax(300px,2fr) auto!important;width:100%}.upload-button{display:inline-flex!important;align-items:center;background:#e7ece8;color:#1c2b27;border-radius:2px;padding:10px 14px!important;font:600 14px 'DM Sans'!important;cursor:pointer}.upload-button input{display:none}.upload-note{font-size:13px;color:#65716c;margin:8px 0}.matching-models{margin:28px 0;background:#fff;padding:26px 30px;border-radius:4px}.matching-models h2{font:700 25px 'Playfair Display';margin:0 0 16px}.matching-models>div{display:flex;gap:10px;flex-wrap:wrap}.matching-models button{background:#f1f4f1!important;color:#1c2b27!important;text-align:left!important}.matching-models button span{display:block;color:#65716c;font-weight:400;margin-top:3px}@media(max-width:700px){.pair-inputs{grid-template-columns:1fr!important}.matching-models{padding:22px}}
+.content-block-editor {
+  display: block !important;
+  border: 1px solid #edf0ed;
+  padding: 14px;
+  margin: 12px 0;
+}
+.content-block-editor > textarea {
+  width: 100%;
+  min-height: 100px;
+}
+.content-block-editor > .remove-block {
+  margin-top: 10px;
+}
+.pair-inputs {
+  grid-template-columns: minmax(220px, 1fr) minmax(300px, 2fr) auto !important;
+  width: 100%;
+}
+.upload-button {
+  display: inline-flex !important;
+  align-items: center;
+  background: #e7ece8;
+  color: #1c2b27;
+  border-radius: 2px;
+  padding: 10px 14px !important;
+  font: 600 14px "DM Sans" !important;
+  cursor: pointer;
+}
+.upload-button input {
+  display: none;
+}
+.upload-note {
+  font-size: 13px;
+  color: #65716c;
+  margin: 8px 0;
+}
+.matching-models {
+  margin: 28px 0;
+  background: #fff;
+  padding: 26px 30px;
+  border-radius: 4px;
+}
+.matching-models h2 {
+  font: 700 25px "Playfair Display";
+  margin: 0 0 16px;
+}
+.matching-models > div {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.matching-models button {
+  background: #f1f4f1 !important;
+  color: #1c2b27 !important;
+  text-align: left !important;
+}
+.matching-models button span {
+  display: block;
+  color: #65716c;
+  font-weight: 400;
+  margin-top: 3px;
+}
+@media (max-width: 700px) {
+  .pair-inputs {
+    grid-template-columns: 1fr !important;
+  }
+  .matching-models {
+    padding: 22px;
+  }
+}

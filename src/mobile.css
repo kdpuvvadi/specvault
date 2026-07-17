@@ -1,1 +1,113 @@
-@media(max-width:700px){body{overflow-x:hidden}main{padding:0 14px 38px}nav{height:64px;gap:12px}.brand{font-size:22px}nav>div{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.user{display:none}.hero{padding:36px 4px 28px}.hero h1{font-size:48px}.hero>p:last-child{font-size:16px}.lookup{padding:16px;gap:14px}.lookup-four{grid-template-columns:1fr}.matching-models{margin:18px 0}.product-card{margin-top:20px;padding:24px 16px}.product-head{display:block}.product-head button{margin-top:16px}.product-head h1{font-size:34px}.section{padding:22px 0}.section h2{font-size:25px}.pairs{grid-template-columns:1fr}.pairs dt{padding-bottom:3px}.pairs dd{padding-top:3px}.editor,.wide-editor{padding:22px 16px}.blocks-head{align-items:flex-start;gap:10px;flex-direction:column}.block-add{width:100%}.block-add>*{flex:1}.content-block-editor{padding:10px}.catalog-modal{max-height:90vh;overflow:auto}.admin-profile{margin:32px 0}.user-grid{gap:24px}.product-head .share-links{margin-top:12px}.inline-structure{padding:16px}.login-card{margin:24px 0}.table-wrap{max-width:100%;overflow:auto}}
+@media (max-width: 700px) {
+  body {
+    overflow-x: hidden;
+  }
+  main {
+    padding: 0 14px 38px;
+  }
+  nav {
+    height: 64px;
+    gap: 12px;
+  }
+  .brand {
+    font-size: 22px;
+  }
+  nav > div {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .user {
+    display: none;
+  }
+  .hero {
+    padding: 36px 4px 28px;
+  }
+  .hero h1 {
+    font-size: 48px;
+  }
+  .hero > p:last-child {
+    font-size: 16px;
+  }
+  .lookup {
+    padding: 16px;
+    gap: 14px;
+  }
+  .lookup-four {
+    grid-template-columns: 1fr;
+  }
+  .matching-models {
+    margin: 18px 0;
+  }
+  .product-card {
+    margin-top: 20px;
+    padding: 24px 16px;
+  }
+  .product-head {
+    display: block;
+  }
+  .product-head button {
+    margin-top: 16px;
+  }
+  .product-head h1 {
+    font-size: 34px;
+  }
+  .section {
+    padding: 22px 0;
+  }
+  .section h2 {
+    font-size: 25px;
+  }
+  .pairs {
+    grid-template-columns: 1fr;
+  }
+  .pairs dt {
+    padding-bottom: 3px;
+  }
+  .pairs dd {
+    padding-top: 3px;
+  }
+  .editor,
+  .wide-editor {
+    padding: 22px 16px;
+  }
+  .blocks-head {
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .block-add {
+    width: 100%;
+  }
+  .block-add > * {
+    flex: 1;
+  }
+  .content-block-editor {
+    padding: 10px;
+  }
+  .catalog-modal {
+    max-height: 90vh;
+    overflow: auto;
+  }
+  .admin-profile {
+    margin: 32px 0;
+  }
+  .user-grid {
+    gap: 24px;
+  }
+  .product-head .share-links {
+    margin-top: 12px;
+  }
+  .inline-structure {
+    padding: 16px;
+  }
+  .login-card {
+    margin: 24px 0;
+  }
+  .table-wrap {
+    max-width: 100%;
+    overflow: auto;
+  }
+}

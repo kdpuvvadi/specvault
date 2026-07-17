@@ -1123,15 +1123,13 @@ function UserAdmin({ onChange, onBack }) {
     e.preventDefault();
     setMessage("");
     try {
-      await pb
-        .collection("users")
-        .create({
-          name,
-          email,
-          password,
-          passwordConfirm: password,
-          admin: makeAdmin,
-        });
+      await pb.collection("users").create({
+        name,
+        email,
+        password,
+        passwordConfirm: password,
+        admin: makeAdmin,
+      });
       setName("");
       setEmail("");
       setPassword("");
