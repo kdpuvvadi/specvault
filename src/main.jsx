@@ -77,13 +77,13 @@ async function hydrateProducts(records) {
       try {
         const allSections = await pb
           .collection("sections")
-          .getFullList({ sort: "created" });
+          .getFullList();
         const sections = allSections.filter(
           (section) => section.product === record.id,
         );
         const allSubsections = await pb
           .collection("subsections")
-          .getFullList({ sort: "created" });
+          .getFullList();
         await Promise.all(
           sections.map(async (section) => {
             try {
